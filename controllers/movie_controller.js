@@ -193,6 +193,7 @@ exports.getDetail = async (req, res, next) => {
         response.success(res, {
             data: {
                 title: title,
+                text_cover: baseURL + cover,
                 cover: baseURL + cover.replace('_filter(blur)', '').replace('w533_and_h300_bestv2', 'w1920_and_h800_multi_faces'),
                 thumbnail: baseURL + thumbnail.replace('_filter(blur)', ''),
                 runtime: runtime,
