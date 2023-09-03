@@ -168,6 +168,8 @@ exports.getDetail = async (req, res, next) => {
         const rating = $(".user_score_chart", html).attr("data-percent");
         const overview = $(".overview p", html).text();
         const title = $(".title a", html).html();
+        const cover = $('#media_scroller .backdrop img', html).attr('src')
+        const thumbnail = $('.poster img', html).attr('src')
         const runtime = $(".runtime", html).text().trim();
         const top_cast = $("#cast_scroller .card", html);
         let topCast = [];
@@ -191,6 +193,8 @@ exports.getDetail = async (req, res, next) => {
         response.success(res, {
             data: {
                 title: title,
+                cover: baseURL + cover.replace('_filter(blur)', '').replace('w533_and_h300_bestv2', 'w1920_and_h800_multi_faces'),
+                thumbnail: baseURL + thumbnail.replace('_filter(blur)', ''),
                 runtime: runtime,
                 overview: overview,
                 rating: rating,
