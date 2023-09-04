@@ -7,6 +7,7 @@ const seriesURL = `${baseURL}/tv`;
 exports.getSeries = async (req, res, next) => {
   try {
     var page = req.query.page || 1;
+    console.log(page)
     var result = await axios.get(seriesURL + `?page=${page}`);
     var html = result.data;
     let tvResult = [];
@@ -45,8 +46,9 @@ exports.getDetail = async (req, res, next) => {
     var result = await axios.get(seriesURL + `/${id}`);
     var html = result.data;
     var $ = cheerio.load(html);
-    const series_image = $(".image_content img").attr("data-src");
     const title = $(".title a", html).text();
+    const thumbnail = $(".image_content img").attr("data-src");
+    const cover = $('#media_scroller .backdrop img', html).attr('src')
     const rating = $(".user_score_chart", html).attr("data-percent");
     const overview = $(".overview p", html).text();
     const profile_name = $(".profile a", html).text();
@@ -77,8 +79,9 @@ exports.getDetail = async (req, res, next) => {
 
     response.success(res, {
       data: {
-        series_image: baseURL + series_image,
         title: title,
+        cover: baseURL + cover.replace('_filter(blur)', '').replace('w533_and_h300_bestv2', 'w1920_and_h800_multi_faces'),
+        thumbnail: baseURL + thumbnail,
         rating: rating,
         overview: overview,
         profile_name: profile_name,
